@@ -15,7 +15,8 @@ from django.http.response import HttpResponseRedirect
 class AuthorEdit(CreateView):
     model = Author
     form_class = AuthorForm
-    success_url = reverse_lazy('p_library:author_list')
+    # success_url = reverse_lazy('p_library:author_list')
+    success_url = reverse_lazy('author_list')
     template_name = 'authors_edit.html'
 
 

@@ -20,6 +20,7 @@ from django.urls import include
 from p_library.views import AuthorEdit, AuthorList, author_create_many, books_authors_create_many
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('book_list', views.book_list),
@@ -30,8 +31,8 @@ urlpatterns = [
     # Добавляем новый urlpattern /redactions/.
     path('redactions/', views.redactions),
 
-    path('author/create', views.AuthorEdit.as_view(), name='author_create'),  
-    path('authors', views.AuthorList.as_view(), name='author_list'), 
+    # path('author/create', views.AuthorEdit.as_view(), name='author_create'),  
+    # path('authors', views.AuthorList.as_view(), name='author_list'), 
 ]
 
 urlpatterns += [  
