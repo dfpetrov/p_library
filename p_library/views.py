@@ -41,7 +41,7 @@ def author_create_many(request):
             for author_form in author_formset:
                 author_form.save()  # Сохраним каждую форму в формсете
             # После чего, переадресуем браузер на список всех авторов.
-            return HttpResponseRedirect(reverse_lazy('p_library:author_list'))
+            return HttpResponseRedirect(reverse_lazy('author_list'))
     else:  # Если обработчик получил GET запрос, значит в ответ нужно просто "нарисовать" формы.
         # Инициализируем формсет и ниже передаём его в контекст шаблона.
         author_formset = AuthorFormSet(prefix='authors')
@@ -49,8 +49,8 @@ def author_create_many(request):
 
 
 def books_authors_create_many(request):
-    AuthorFormSet = formset_factory(AuthorForm, extra=2)
-    BookFormSet = formset_factory(BookForm, extra=2)
+    AuthorFormSet = formset_factory(AuthorForm, extra=1)
+    BookFormSet = formset_factory(BookForm, extra=1)
     if request.method == 'POST':
         author_formset = AuthorFormSet(
             request.POST, request.FILES, prefix='authors')
@@ -60,7 +60,7 @@ def books_authors_create_many(request):
                 author_form.save()
             for book_form in book_formset:
                 book_form.save()
-            return HttpResponseRedirect(reverse_lazy('p_library:author_list'))
+            return HttpResponseRedirect(reverse_lazy('author_list'))
     else:
         author_formset = AuthorFormSet(prefix='authors')
         book_formset = BookFormSet(prefix='books')
@@ -69,7 +69,7 @@ def books_authors_create_many(request):
         'manage_books_authors.html',
         {
             'author_formset': author_formset,
-            'book_formset': book_formset,
+            'book_formset': book_formset
         }
     )
 
