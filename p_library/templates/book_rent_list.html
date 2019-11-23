@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Подключите стили bootstrap в шаблон -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Книги в аренде</title>
+</head>
+
+<body>
+    
+    <div class="container">
+        <h1 class="display-4 py-4">Взяли почитать</h1>
+        
+        {% for friend in friends %}
+        <ul>
+            {{ forloop.counter }}. {{ friend }} взял:
+            
+            {% for rent in friend.bookrent_set.all %}
+            
+            <li class="bg-success">{{ rent.book }}</li>
+            {% endfor %}
+
+        </ul>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>

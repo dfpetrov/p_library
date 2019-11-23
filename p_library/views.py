@@ -1,16 +1,22 @@
 from django.shortcuts import render
-from .models import Book, Edition
+from .models import Book, Edition, BookRent, Friend
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
 from .models import Author
-from .forms import AuthorForm, BookForm
+from .forms import AuthorForm, BookForm, BookRentForm
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
 # Create your views here.
 
+
+class BookRentEdit(CreateView):
+    model = BookRent
+    form_class = BookRentForm
+    success_url = reverse_lazy('book_rent_list')
+    template_name = 'book_rent_edit.html'
 
 class AuthorEdit(CreateView):
     model = Author
@@ -89,6 +95,18 @@ def redactions(request):
     # Формируем выборку всех редакций
     biblio_data = {
         'editions': Edition.objects.all(),
+    }
+
+    # Передаем в шаблон все редакции
+    return HttpResponse(template.render(biblio_data, request))
+
+def book_rent_list(request):
+
+    template = loader.get_template('book_rent_list.html')
+    
+    # Формируем выборку всех редакций
+    biblio_data = {
+        'friends': Friend.objects.all(),
     }
 
     # Передаем в шаблон все редакции
