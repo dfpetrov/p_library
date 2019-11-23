@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
 from .models import Author
-from .forms import AuthorForm, BookForm, BookRentForm
+from .forms import AuthorForm, BookForm, BookRentForm, FriendForm
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from django.forms import formset_factory
@@ -18,6 +18,12 @@ class BookRentEdit(CreateView):
     success_url = reverse_lazy('book_rent_list')
     template_name = 'book_rent_edit.html'
 
+class FriendEdit(CreateView):
+    model = Friend
+    form_class = FriendForm
+    success_url = reverse_lazy('friend_list')
+    template_name = 'friend_edit.html'
+
 class AuthorEdit(CreateView):
     model = Author
     form_class = AuthorForm
@@ -29,6 +35,10 @@ class AuthorEdit(CreateView):
 class AuthorList(ListView):
     model = Author
     template_name = 'authors_list.html'
+
+class FriendList(ListView):
+    model = Friend
+    template_name = 'friend_list.html'
 
 
 def author_create_many(request):

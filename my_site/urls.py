@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from p_library import views
 from django.urls import include
-from p_library.views import AuthorEdit, BookRentEdit, AuthorList, author_create_many, books_authors_create_many
+from p_library.views import AuthorEdit, BookRentEdit, FriendEdit, AuthorList, FriendList, author_create_many, books_authors_create_many
 
 
 
@@ -31,6 +31,7 @@ urlpatterns = [
     # Добавляем новый urlpattern /redactions/.
     path('redactions/', views.redactions),
     path('book_rent_list/', views.book_rent_list, name='book_rent_list'),
+    path('friends', FriendList.as_view(), name='friend_list'),
 
     # path('author/create', views.AuthorEdit.as_view(), name='author_create'),  
     # path('authors', views.AuthorList.as_view(), name='author_list'), 
@@ -42,4 +43,5 @@ urlpatterns += [
 	path('author/create_many', author_create_many, name='author_create_many'),
     path('author_book/create_many', books_authors_create_many, name='author_book_create_many'),
     path('book_rent/create', BookRentEdit.as_view(), name='book_rent_create'),
+    path('friend/create', FriendEdit.as_view(), name='friend_create'),
 ]
