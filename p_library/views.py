@@ -4,12 +4,24 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
 from .models import Author
-from .forms import AuthorForm, BookForm, BookRentForm, FriendForm
-from django.views.generic import CreateView, ListView
+from .forms import AuthorForm, BookForm, BookRentForm, FriendForm, Book
+from django.views.generic import CreateView, ListView, UpdateView
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
 # Create your views here.
+
+
+class BookCreate(CreateView):
+    model = Book
+    fields = ['title', 'edition', 'author', 'logo']
+    template_name = 'book_form.html'
+
+
+class BookUpdate(UpdateView):
+    model = Book
+    fields = ['title', 'edition', 'author', 'logo']
+    template_name = 'book_update_form.html'
 
 
 class BookRentEdit(CreateView):
@@ -18,11 +30,13 @@ class BookRentEdit(CreateView):
     success_url = reverse_lazy('book_rent_list')
     template_name = 'book_rent_edit.html'
 
+
 class FriendEdit(CreateView):
     model = Friend
     form_class = FriendForm
     success_url = reverse_lazy('friend_list')
     template_name = 'friend_edit.html'
+
 
 class AuthorEdit(CreateView):
     model = Author
@@ -35,6 +49,7 @@ class AuthorEdit(CreateView):
 class AuthorList(ListView):
     model = Author
     template_name = 'authors_list.html'
+
 
 class FriendList(ListView):
     model = Friend
@@ -110,10 +125,11 @@ def redactions(request):
     # Передаем в шаблон все редакции
     return HttpResponse(template.render(biblio_data, request))
 
+
 def book_rent_list(request):
 
     template = loader.get_template('book_rent_list.html')
-    
+
     # Формируем выборку всех редакций
     biblio_data = {
         'friends': Friend.objects.all(),

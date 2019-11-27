@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% block extra_title %}
+<title>Редакции</title>
+{% endblock %}
 
-    <!-- Подключите стили bootstrap в шаблон -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Редакции</title>
-</head>
-
-<body>
+{% block extra_body %}
     
     <div class="container">
-        <h1 class="display-4 py-4">Список редакций и их книг</h1>
         
+        <h1 class="display-4 py-4">Список редакций и их книг</h1>
+        {% load static %}
+        <p>цвет body взят из подключенного статик-файла <a href="{% static '/style/style.css' %}" target="_blank">{% static '/style/style.css' %}</a> </p>
         <!-- Обходим все редакции -->
         {% for edition in editions %}
         <ul>
@@ -27,13 +21,12 @@
             {% for book in edition.book_set.all %}
             
             <!-- Добавляем какой-нибудь стиль в теги списка -->
-            <li class="bg-success">{{ book}}</li>
+            <li class="bg-success"><img src="{{ book.get_logo_url }}" alt="" style="width: 100px; height: 100px;" class="m-3"><a href="{{ book.get_update_url }}"> {{ book }} </a></li>
+
             {% endfor %}
 
         </ul>
         {% endfor %}
     </div>
 
-</body>
-
-</html>
+    {% endblock %}
